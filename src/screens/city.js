@@ -1,17 +1,16 @@
 import React from "react";
 
 import {
-  FlatList,
-  SafeAreaView,
-  Text,
   ImageBackground,
+  SafeAreaView,
   StatusBar,
-  View,
   StyleSheet,
+  Text,
+  View
 } from "react-native";
-import { Feather } from "@expo/vector-icons";
 import IconText from "../components/IconText";
-const City = () => {
+import moment from "moment";
+const City = ({ weatherData }) => {
   const {
     container,
     imageLayout,
@@ -22,18 +21,27 @@ const City = () => {
     risesetWrapper,
     riseSetext,
   } = styles;
+
+  const {
+    name,
+    country,
+    population,
+    sunrise,
+    sunset
+
+  } = weatherData
   return (
     <SafeAreaView style={container}>
       <ImageBackground
         style={imageLayout}
         source={require("../../assets/city-bacground.jpg")}
       >
-        <Text style={[CityText, cityName]}> London</Text>
-        <Text style={[CityText, CountryName]}>UK</Text>
+        <Text style={[CityText, cityName]}> {name}</Text>
+        <Text style={[CityText, CountryName]}>{country} </Text>
         <View style={populationWrapper}>
           <IconText
             iconName={"user"}
-            text={"8000"}
+            text={`population ${population}`}
             bodyTextStyles={populationWrapper}
             color={"red"}
           />
@@ -41,13 +49,13 @@ const City = () => {
         <View style={risesetWrapper}>
           <IconText
             iconName={"sunrise"}
-            text={"10:46:58AM"}
+            text={moment(sunrise).format('h:mm:ss a')}
             bodyTextStyles={riseSetext}
             color={"white"}
           />
           <IconText
             iconName={"sunset"}
-            text={"17:28:58PM"}
+            text={moment(sunset).format('h:mm:ss a')}
             bodyTextStyles={riseSetext}
             color={"white"}
           />
@@ -95,8 +103,8 @@ const styles = StyleSheet.create({
     fontSize: 20,
     color: "white",
   },
-  rowLayout:{
-    flexDirection:'row'
+  rowLayout: {
+    flexDirection: 'row'
   }
 });
 export default City;

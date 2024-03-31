@@ -21,6 +21,7 @@ export const useGetWeather = () => {
             setWeather(data)
 
         } catch (error) {
+            setError(error)
             setError("Cloud not fetch weather")
         } finally {
             setLoading(false)
